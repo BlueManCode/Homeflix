@@ -1,15 +1,13 @@
 const Joi = require('@hapi/joi')
 
 const schema = Joi.object({
-  username: Joi.string()
-    .alphanum()
-    .min(3)
-    .max(20)
+  email: Joi.string()
+    .email()
     .required(),
 
   password: Joi.string()
     .pattern(new RegExp('^[a-zA-Z0-9]{8,20}$'))
     .required(),
-}).with('username', 'password')
+}).with('email', 'password')
 
 module.exports = schema

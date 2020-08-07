@@ -2,7 +2,7 @@ const mongoose = require('../db/config')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true
   },
@@ -14,6 +14,6 @@ const userSchema = new Schema({
   timestamps: true
 })
 
-const User = mongoose.model('MyShowList_Users', userSchema)
+const User = mongoose.model('Users', userSchema)
 
 module.exports = User

@@ -16,7 +16,7 @@ router.post('/login', async (req, res, next) => {
   if (!results.error) {
     // check if the username exist in the database
     User.findOne({
-      username: req.body.username
+      email: req.body.email
     }).then(doc => {
       // if the username exist
       if (doc) {
@@ -26,7 +26,7 @@ router.post('/login', async (req, res, next) => {
           if (result) {
             // send back a json token
             const token = jwt.sign({
-              username: doc.username,
+              email: doc.email,
               id: doc._id
             }, process.env.SECRET, {
               expiresIn: 60 * 60
@@ -47,8 +47,6 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-
-
 router.post('/signup', async (req, res, next) => {
   // validate the user input using joi
   const results = schema.validate(req.body)
@@ -57,7 +55,7 @@ router.post('/signup', async (req, res, next) => {
   if (!results.error) {
     // check if the username exist in the database
     User.findOne({
-      username: req.body.username
+      email: req.body.email
     }).then(doc => {
       // if the username exist
       if (doc) {
@@ -68,7 +66,7 @@ router.post('/signup', async (req, res, next) => {
           // hash the password and update the user object
           bcrypt.hash(req.body.password, salt, async function (err, hash) {
             const user = {
-              username: req.body.username,
+              email: req.body.email,
               password: hash
             }
             // add the user to the database
