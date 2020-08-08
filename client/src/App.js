@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useLocation, useHistory } from 'react-router-dom';
 
 // pages
-import Login from './pages/Login';
-import Browse from './pages/Browse';
+import Login from './pages/Login/Login';
+import Browse from './pages/Browse/Browse';
 
 function App() {
   const location = useLocation();
@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     // if on not login page and no token
     if (
-      location.pathname !== 'login' &&
+      location.pathname !== '/login' &&
       !JSON.parse(localStorage.getItem('token'))
     ) {
       localStorage.clear();
@@ -23,7 +23,7 @@ function App() {
 
     // if on login page and has token
     else if (
-      location.pathname === 'login' &&
+      location.pathname === '/login' &&
       JSON.parse(localStorage.getItem('token'))
     ) {
       history.push('/browse');
@@ -31,7 +31,13 @@ function App() {
   }, [location, history]);
 
   return (
-    <div>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        margin: '0',
+        padding: '0',
+      }}>
       <Switch>
         <Route exact path="/login">
           <Login />
