@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { HashRouter } from 'react-router-dom';
+import { StoreProvider } from 'easy-peasy';
+
+import store from './store/store';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <StoreProvider store={store}>
+        <App />
+      </StoreProvider>
+    </HashRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
