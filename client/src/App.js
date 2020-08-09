@@ -17,7 +17,7 @@ function App() {
       location.pathname !== '/login' &&
       !JSON.parse(localStorage.getItem('token'))
     ) {
-      localStorage.clear();
+      localStorage.remove('token');
       history.push('/login');
     }
 
@@ -27,6 +27,23 @@ function App() {
       JSON.parse(localStorage.getItem('token'))
     ) {
       history.push('/browse');
+    }
+  }, [location, history]);
+
+  // check if the auth token is valid
+  useEffect(() => {
+    if (
+      JSON.parse(localStorage.getItem('token')) &&
+      location.pathname !== '/login'
+    ) {
+      const res = fetch('http://localhost:5000/api/', {
+        headers: { authorization: JSON.parse(localStorage.getItem('token')) },
+      });
+      // if a error
+      if (res.status !== 200) {
+        localStorage.remove('token');
+        history.push('/login');
+      }
     }
   }, [location, history]);
 
