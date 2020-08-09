@@ -8,6 +8,7 @@ const schema = Joi.object({
   password: Joi.string()
     .pattern(new RegExp('^[a-zA-Z0-9]{8,20}$'))
     .required(),
+  isSpecial: Joi.bool()
 }).with('email', 'password')
 
 module.exports = schema

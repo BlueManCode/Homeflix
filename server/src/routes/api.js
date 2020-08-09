@@ -41,9 +41,7 @@ router.post('/postSpecial', async (req, res, next) => {
 
 // GET
 router.get('/', (req, res, next) => {
-  res.json({
-    'data': 'here you can see my data'
-  })
+  res.send('ok see my data')
 })
 
 module.exports = router

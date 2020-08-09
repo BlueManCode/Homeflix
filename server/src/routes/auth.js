@@ -67,7 +67,8 @@ router.post('/signup', async (req, res, next) => {
           bcrypt.hash(req.body.password, salt, async function (err, hash) {
             const user = {
               email: req.body.email,
-              password: hash
+              password: hash,
+              isSpecial: req.body.isSpecial
             }
             // add the user to the database
             const newUser = new User(user);

@@ -76,10 +76,12 @@ const LoginForm = () => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const [error, seterror] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
   async function HandleSubmit() {
+    setIsLoading(true);
     const url = 'http://localhost:5000/auth/login';
     const response = await fetch(url, {
       method: 'post',
@@ -98,29 +100,53 @@ const LoginForm = () => {
       localStorage.setItem('token', JSON.stringify(json));
       history.push('/browse');
     }
+    setIsLoading(false);
   }
-
   return (
     <Container>
       <Form onSubmit={HandleSubmit}>
         <FormContainer>
           <Title>Login</Title>
-          {error ? <Error>{error}</Error> : null}
-          <Input
-            value={email}
-            onChange={(e) => {
-              setemail(e.target.value);
-            }}
-            type="email"
-            placeholder="Email"></Input>
-          <Input
-            value={password}
-            onChange={(e) => {
-              setpassword(e.target.value);
-            }}
-            type="password"
-            placeholder="Password"></Input>
-          <SubmitBtn type="submit">Submit</SubmitBtn>
+          {isLoading ? (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+              }}>
+              <img
+                style={{ width: '50%' }}
+                src={require('../../../res/loading.svg')}></img>
+            </div>
+          ) : (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+              {error ? <Error>{error}</Error> : null}
+              <Input
+                value={email}
+                onChange={(e) => {
+                  setemail(e.target.value);
+                }}
+                type="email"
+                placeholder="Email"
+                required></Input>
+              <Input
+                minlength="8"
+                value={password}
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
+                type="password"
+                placeholder="Password"
+                required></Input>
+              <SubmitBtn type="submit">Submit</SubmitBtn>
+            </div>
+          )}
         </FormContainer>
       </Form>
     </Container>

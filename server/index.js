@@ -22,18 +22,14 @@ app.use('/auth', authRoute);
 app.use((req, res, next) => {
   const authHeader = req.get('authorization');
   if (authHeader) {
-    const token = authHeader;
-    if (token) {
-      jwt.verify(token, process.env.SECRET, (error, user) => {
-        if (error) {
-          next(new Error(error))
-        }
-        req.user = user;
-        next();
-      });
-    } else {
+    const token = authHeader.split('"')[3]
+    jwt.verify(token, process.env.SECRET, (error, user) => {
+      if (error) {
+        next(new Error(error))
+      }
+      req.user = user;
       next();
-    }
+    });
   } else {
     next(new Error('auth token not provided'));
   }

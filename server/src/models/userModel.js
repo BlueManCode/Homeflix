@@ -1,4 +1,7 @@
 const mongoose = require('../db/config')
+const {
+  boolean
+} = require('@hapi/joi')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -10,6 +13,9 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  isSpecial: {
+    type: Boolean,
+  }
 }, {
   timestamps: true
 })
