@@ -17,7 +17,7 @@ function App() {
       location.pathname !== '/login' &&
       !JSON.parse(localStorage.getItem('token'))
     ) {
-      localStorage.remove('token');
+      localStorage.removeItem('token');
       history.push('/login');
     }
 
@@ -41,7 +41,7 @@ function App() {
       });
       // if a error
       if (res.status !== 200) {
-        localStorage.remove('token');
+        localStorage.removeItem('token');
         history.push('/login');
       }
     }
