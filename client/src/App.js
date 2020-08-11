@@ -15,7 +15,7 @@ function App() {
     // if on not login page and no token
     if (
       location.pathname !== '/login' &&
-      !JSON.parse(localStorage.getItem('token'))
+      JSON.parse(localStorage.getItem('token'))
     ) {
       localStorage.removeItem('token');
       history.push('/login');
