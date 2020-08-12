@@ -39,8 +39,9 @@ const Browse = () => {
   }, [])
 
   return (
-    <div>
-      <div>Browse</div>
+    <div style={{background: 'rgb(20,20,20)', width: '100vw', height: '100vh' }}>
+      <Navbar/>
+      <Preview/>
     </div>
   );
 };
