@@ -1,47 +1,44 @@
 const express = require('express')
 const router = express.Router()
 
+const User = require('../models/userModel')
 const Show = require('../models/showModal')
 const Movie = require('../models/movieModal')
 const Special = require('../models/specialModal')
 
-// POST 
-router.post('/postShow', async (req, res, next) => {
-  const body = req.body
-  try {
-    const show = new Show(body)
-    await show.save()
-    res.send('saved')
-  } catch (error) {
-    next(new Error(error))
-  }
-})
-
-router.post('/postMovie', async (req, res, next) => {
-  const body = req.body
-  try {
-    const movie = new Movie(body)
-    await movie.save()
-    res.send('saved')
-  } catch (error) {
-    next(new Error(error))
-  }
-})
-
-router.post('/postSpecial', async (req, res, next) => {
-  const body = req.body
-  try {
-    const special = new Special(body)
-    await special.save()
-    res.send('saved')
-  } catch (error) {
-    next(new Error(error))
-  }
-})
-
 // GET
-router.get('/', (req, res, next) => {
-  res.send('ok see my data')
+router.get('/', (req, res) => {
+	res.json({})
+})
+
+// middelware to get userInfo from the database
+router.use(async (req, res, next) => {
+	const doc = await User.findOne({
+		email: req.user.email
+	})
+	req.userInfo = doc
+	next()
+})
+
+// get all content
+router.get('/getContent', async (req, res) => {
+	const show = await Show.find({})
+	const movie = await Movie.find({})
+	const special = await Special.find({})
+
+	// if special send back special
+	if (req.userInfo.isSpecial) {
+		res.send({
+			show,
+			movie,
+			special
+		})
+	} else {
+		res.send({
+			show,
+			movie
+		})
+	}
 })
 
 module.exports = router

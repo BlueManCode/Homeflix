@@ -8,6 +8,7 @@ require('dotenv').config();
 const app = express();
 const authRoute = require('./src/routes/auth');
 const apiRoute = require('./src/routes/api')
+const postRoute = require('./src/routes/post.js')
 const errorHandler = require('./src/functions/errorHandler');
 
 // middlewares
@@ -16,24 +17,26 @@ app.use(cors());
 app.use(express.json());
 app.use(volleyball);
 
-// check token
+// auth route
 app.use('/auth', authRoute);
+app.use('/post', postRoute);
 // middelware to check if the token is provided
 app.use((req, res, next) => {
-  const authHeader = req.get('authorization');
-  if (authHeader) {
-    const token = authHeader.split('"')[3]
-    jwt.verify(token, process.env.SECRET, (error, user) => {
-      if (error) {
-        next(new Error(error))
-      }
-      req.user = user;
-      next();
-    });
-  } else {
-    next(new Error('auth token not provided'));
-  }
+	const authHeader = req.get('authorization');
+	if (authHeader) {
+		const token = authHeader.split('"')[3]
+		jwt.verify(token, process.env.SECRET, (error, user) => {
+			if (error) {
+				next(new Error(error))
+			}
+			req.user = user;
+			next();
+		});
+	} else {
+		next(new Error('auth token not provided'));
+	}
 })
+// api route
 app.use('/api', apiRoute)
 
 // error handlers
@@ -41,5 +44,5 @@ app.use(errorHandler.notFound);
 app.use(errorHandler.errorHandler);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running at port ${process.env.PORT}`);
+	console.log(`Server running at port ${process.env.PORT}`);
 });

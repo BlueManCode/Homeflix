@@ -12,8 +12,8 @@ import {
 } from 'react-router-dom';
 
 // pages
-import Login from './pages/Login/Login';
-import Browse from './pages/Browse/Browse';
+import Login from './pages/Login/Login.jsx';
+import Browse from './pages/Browse/Browse.jsx'
 
 function App() {
   const location = useLocation();
