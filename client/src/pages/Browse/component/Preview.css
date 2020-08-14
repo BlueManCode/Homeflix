@@ -1,82 +1,56 @@
-.preview-video{
+.preview-poster {
   object-fit: contain;
   width: 100%;
+  height: 448px;
 }
 
-.preview-poster{
-  object-fit: contain;
-  width: 100%;
-}
-
-.preview-poster-content{
-  position: absolute;
-  top: 0;
+.preview-poster-content {
   color: white;
-  margin-left: 30px;
-  padding-top: 140px;
-  height: 190px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 5vmin;
 }
 
-.preview-poster-content-title{
+.test {
+  object-fit: content;
+  width: 20vw;
+  z-index: 0;
+}
+
+.preview-poster-content-title {
   font-weight: 800;
-  font-size: 4rem;
-  padding-bottom: 0.3rem;
+  font-size: 10vmin;
 }
 
-.preview-poster-content-btn button{
+.preview-poster-content-btn button {
   cursor: pointer;
   color: white;
   outline: none;
   border: none;
   font-weight: 700;
-  border-radius: 0.2vw;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  margin-right: 1rem;
-  padding-top: 0.5rem;
-  background-color: rgba(51, 51, 51, 0.5);
-  padding-bottom: 0.5rem;
+  border-radius: 0.3vmin;
+  padding-left: 3vmin;
+  padding-right: 3vmin;
+  margin-right: 1.5vmin;
+  padding-top: 1vmin;
+  background-color: rgba(51, 51, 51, 0.8);
+  padding-bottom: 1vmin;
+  margin-bottom: 10vmin;
+}
+
+.preview-poster-blend {
+  height: 5rem;
+  background-image: linear-gradient(180deg, transparent, rgba(37, 37, 37, 0.6), rgba(20, 20, 20, 1));
+  transform: translateY(-5rem);
 }
 
 /* full screen */
-@media only screen and (min-width: 900px){
-  .preview-video{
-    object-fit: contain;
-    width: 100%;
-  }
-
-  .preview-poster{
+@media only screen and (min-width: 900px) {
+  .preview-poster {
     object-fit: cover;
-    height: 700px;
-  }
-
-  .preview-poster-content{
-    position: absolute;
-    top: 0;
-    color: white;
-    margin-left: 60px;
-    padding-top: 140px;
-    height: 190px;
-  }
-
-  .preview-poster-content-title{
-    font-weight: 800;
-    font-size: 6rem;
-    padding-bottom: 0.3rem;
-  }
-
-  .preview-poster-content-btn button{
-    cursor: pointer;
-    color: white;
-    outline: none;
-    border: none;
-    font-weight: 700;
-    border-radius: 0.2vw;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-right: 1rem;
-    padding-top: 0.5rem;
-    background-color: rgba(51, 51, 51, 0.5);
-    padding-bottom: 0.5rem;
+    height: 100%;
   }
 }

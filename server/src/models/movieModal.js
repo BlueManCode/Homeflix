@@ -12,6 +12,7 @@ const optionNumber = {
 }
 
 const movieSchema = new Schema({
+  poster: optionString,
   title: optionString,
   titlePNG: optionString,
   searchTag: optionString,
