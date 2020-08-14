@@ -13,13 +13,19 @@ const Preview = () => {
         backgroundSize: 'cover',
       }}>
       <div className="preview-poster-content">
-        <img
-          className="test"
-          src="https://www.pngfind.com/pngs/m/310-3100612_captain-marvel-logo-captain-marvel-title-vector-hd.png"></img>
-        {/* <div className="preview-poster-content-title">Skyscraper</div> */}
-        <div className="preview-poster-content-btn">
-          <button>Play</button>
-          <button>More Info</button>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '30%',
+          }}>
+          <img
+            className="preview-poster-content-title"
+            src="https://i.redd.it/4qu2clxb7ir11.png"></img>
+          <div className="preview-poster-content-btn">
+            <button>Play</button>
+            <button>More Info</button>
+          </div>
         </div>
       </div>
       <div className="preview-poster-blend"></div>
