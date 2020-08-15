@@ -1,19 +1,10 @@
-import React, {
-  useEffect
-} from 'react';
-import {
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
-import {
-  useLocation,
-  useHistory
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 // pages
 import Login from './pages/Login/Login.jsx';
-import Browse from './pages/Browse/Browse.jsx'
+import Browse from './pages/Browse/Browse.jsx';
 
 function App() {
   const location = useLocation();

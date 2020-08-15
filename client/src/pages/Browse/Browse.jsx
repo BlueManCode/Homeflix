@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import Navbar from './component/Navbar';
 import CardView from './component/CardView';
 import Preview from './component/Preview';
@@ -185,13 +184,11 @@ const Browse = () => {
     <div
       style={{
         background: 'rgb(20,20,20)',
-        width: '100vw',
-        height: '100vh',
         overflowX: 'hidden',
       }}>
       <Navbar />
       <Preview movie={movie} />
-      <div style={{ width: '100%', height: '100%' }}>
+      <div>
         {movie ? <CardView title="New Movies" list={movie} /> : null}
         {show ? <CardView title="New Shows" list={show} /> : null}
         {special ? <CardView title="New Special" list={special} /> : null}

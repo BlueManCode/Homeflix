@@ -15,30 +15,16 @@
 
 .preview-poster-content-title {
   object-fit: content;
-  width: 25vw;
-  margin-left: auto;
-  margin-right: auto;
+  width: 40vmin;
+  display: flex;
+  justify-content: center;
 }
 
 .preview-poster-content-btn {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.preview-poster-content-btn button {
-  cursor: pointer;
-  color: white;
-  outline: none;
-  border: none;
-  font-weight: 700;
-  border-radius: 0.3vmin;
-  padding-left: 3vmin;
-  padding-right: 3vmin;
-  margin-right: 1.5vmin;
-  padding-top: 1vmin;
-  background-color: rgba(51, 51, 51, 0.8);
-  padding-bottom: 1vmin;
-  margin-bottom: 10vmin;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  width: 40vmin;
 }
 
 .preview-poster-blend {
@@ -50,7 +36,7 @@
 /* full screen */
 @media only screen and (min-width: 900px) {
   .preview-poster {
-    object-fit: cover;
-    height: 100%;
+    object-fit: contain;
+    height: 800px;
   }
 }

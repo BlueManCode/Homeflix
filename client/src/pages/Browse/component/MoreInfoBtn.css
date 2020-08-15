@@ -1,0 +1,13 @@
+.preview-poster-content-btn-moreinfo {
+  cursor: pointer;
+  color: white;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.3vmin;
+  padding: 1vmin 3vmin 1vmin 3vmin;
+  margin-right: 1.5vmin;
+  background-color: rgba(91, 91, 91, 0.7);
+  margin-bottom: 10vmin;
+  font-size: 2vmin;
+}

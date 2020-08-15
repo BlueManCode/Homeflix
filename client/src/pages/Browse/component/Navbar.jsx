@@ -9,7 +9,6 @@ const Navbar = () => {
   const scrollY = useScrollPosition(60);
 
   useEffect(() => {
-    console.log(scrollY);
     if (scrollY > 100) {
       setShow(true);
     } else {
@@ -18,11 +17,9 @@ const Navbar = () => {
   }, [scrollY]);
 
   return (
-    <div
-      style={{ background: `${show ? 'black' : 'none'}` }}
-      className={`nav ${show && 'nav-black'}`}>
+    <div style={{ background: `${show ? 'black' : 'none'}` }} className="nav">
       <div className="nav-content">
-        <img src="https://download.logo.wine/logo/Netflix/Netflix-Logo.wine.png"></img>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Logo_Netflix.png/1200px-Logo_Netflix.png"></img>
         <Link className="nav-link" to="/browse">
           Home
         </Link>

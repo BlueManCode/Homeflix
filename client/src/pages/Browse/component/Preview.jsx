@@ -1,5 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Preview.css';
+
+import PlayBtn from './PlayBtn';
+import MoreInfoBtn from './MoreInfoBtn';
 
 const Preview = ({ movie }) => {
   const [poster, setPoster] = useState(null);
@@ -28,8 +31,8 @@ const Preview = ({ movie }) => {
           }}>
           <img className="preview-poster-content-title" src={title}></img>
           <div className="preview-poster-content-btn">
-            <button>Play</button>
-            <button>More Info</button>
+            <PlayBtn />
+            <MoreInfoBtn />
           </div>
         </div>
       </div>
