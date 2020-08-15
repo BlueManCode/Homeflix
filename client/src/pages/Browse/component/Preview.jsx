@@ -1,15 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Preview.css';
 
-const Preview = () => {
-  const posterUrl =
-    'https://images.hdqwalls.com/download/captain-marvel-5k-movie-poster-4q-1920x1080.jpg';
+const Preview = ({ movie }) => {
+  const [poster, setPoster] = useState(null);
+  const [title, setTitle] = useState(null);
+
+  useEffect(() => {
+    // get a random movie to display
+    const item = movie[Math.floor(Math.random() * movie.length)];
+    setPoster(item.preview_poster);
+    setTitle(item.titlePNG);
+  }, []);
 
   return (
     <div
       className="preview-poster"
       style={{
-        backgroundImage: `url(${posterUrl})`,
+        backgroundImage: `url(${poster})`,
         backgroundSize: 'cover',
       }}>
       <div className="preview-poster-content">
@@ -19,9 +26,7 @@ const Preview = () => {
             flexDirection: 'column',
             width: '30%',
           }}>
-          <img
-            className="preview-poster-content-title"
-            src="https://i.redd.it/4qu2clxb7ir11.png"></img>
+          <img className="preview-poster-content-title" src={title}></img>
           <div className="preview-poster-content-btn">
             <button>Play</button>
             <button>More Info</button>

@@ -148,6 +148,9 @@ const LoginForm = () => {
             </div>
           )}
         </FormContainer>
+        <div style={{ paddingBottom: '40px' }}>
+          WIP Contact your local Aman for access
+        </div>
       </Form>
     </Container>
   );
