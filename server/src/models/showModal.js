@@ -12,15 +12,17 @@ const optionNumber = {
 }
 
 const showSchema = new Schema({
-  poster: optionString,
+  preview_poster: optionString,
+  card_poster: optionString,
   title: optionString,
   titlePNG: optionString,
-  searchTag: optionString,
+  search_tags: optionString,
   year: optionNumber,
   rating: optionNumber,
+  length: optionNumber,
   overview: optionString,
   genres: optionString,
-  showTag: optionString,
+  show_warning: optionString,
   seasons: {
     type: Array,
     required: true
