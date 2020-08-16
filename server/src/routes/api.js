@@ -41,4 +41,6 @@ router.get('/getContent', async (req, res) => {
 	}
 })
 
+// get search movie
+
 module.exports = router

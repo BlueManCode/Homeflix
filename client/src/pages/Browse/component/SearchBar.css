@@ -1,0 +1,50 @@
+.search-bar {
+  margin-right: 5vmin;
+  margin-left: auto;
+  position: relative;
+  display: block;
+  transition: 0.4s linear;
+  overflow: hidden;
+  width: 100%;
+  max-width: 53px;
+}
+
+.search-bar-input {
+  display: block;
+  appearance: none;
+  width: 100%;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+
+  padding: 15px;
+
+  cursor: pointer;
+  transition: 0.4s linear;
+}
+
+.search-bar-logo {
+  position: absolute;
+  right: calc(53px/2);
+  top: 50%;
+  transform: translate(50%, -50%);
+
+  width: 20px;
+  height: 20px;
+
+  pointer-events: none;
+}
+
+.search-bar:focus-within {
+  max-width: 40%;
+  background: black;
+  opacity: 0.8;
+  border-radius: 3px;
+}
+
+.search-bar-input:focus-within {
+  color: white;
+  padding-right: 50px;
+}

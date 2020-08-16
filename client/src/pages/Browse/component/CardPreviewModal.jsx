@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './CardPreviewModal.css';
 
 import PlayBtn from './PlayBtn';
 import MyListBtn from './MyListBtn';
 
 const CardPreviewModal = ({ showModel, modelData }) => {
+  const [isShow, setisShow] = useState(false);
+  // useEffect(() => {
+  //   console.log(modelData);
+  //   try {
+  //     if (modelData.seasons) {
+  //       setisShow(true);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [modelData]);
   return (
     <div
       style={{
@@ -19,7 +30,12 @@ const CardPreviewModal = ({ showModel, modelData }) => {
           <div style={{ display: 'flex' }}>
             <div className="cardview-model-data">{modelData.year}</div>
             <div className="cardview-model-data">{modelData.rating}</div>
-            <div className="cardview-model-data">{modelData.length}min.</div>
+            <div className="cardview-model-data">{modelData.length}min</div>
+            {modelData.seasons ? (
+              <div className="cardview-model-data">
+                {modelData.seasons.length} Seasons
+              </div>
+            ) : null}
           </div>
           <div className="cardview-model-overview">{modelData.overview}</div>
           <div style={{ display: 'flex', marginTop: '2vmin' }}>

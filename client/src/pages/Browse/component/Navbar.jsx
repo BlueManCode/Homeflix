@@ -3,6 +3,8 @@ import useScrollPosition from '@react-hook/window-scroll';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
+import SearchBar from './SearchBar';
+
 const Navbar = () => {
   const [show, setShow] = useState(false);
 
@@ -17,7 +19,13 @@ const Navbar = () => {
   }, [scrollY]);
 
   return (
-    <div style={{ background: `${show ? 'black' : 'none'}` }} className="nav">
+    <div
+      style={{
+        background: `${
+          show ? 'black' : 'linear-gradient(to bottom, black, transparent)'
+        }`,
+      }}
+      className="nav">
       <div className="nav-content">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Logo_Netflix.png/1200px-Logo_Netflix.png"></img>
         <Link className="nav-link" to="/browse">
@@ -32,6 +40,7 @@ const Navbar = () => {
         <Link className="nav-link" to="/mylist">
           My List
         </Link>
+        <SearchBar />
       </div>
     </div>
   );

@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './component/Navbar';
-import CardView from './component/CardView';
-import Preview from './component/Preview';
+import Navbar from '../Browse/component/Navbar';
+import CardView from '../Browse/component/CardView';
+import Preview from '../Browse/component/Preview';
 
-const Browse = () => {
+const Show = () => {
   const [isLoading, setisLoading] = useState(true);
 
   const [show, setShow] = useState(null);
   const [movie, setMovie] = useState(null);
   const [special, setSpecial] = useState(null);
-
-  // genres movies
-  const [action, setAction] = useState([]);
-  const [drama, setDrama] = useState([]);
-  const [romance, setRomance] = useState([]);
-  const [comedy, setComedy] = useState([]);
-  const [scifi, setScifi] = useState([]);
-  const [horror, setHorror] = useState([]);
-  const [crime, setCrime] = useState([]);
-  const [animation, setAnimation] = useState([]);
-  const [adventure, setAdventure] = useState([]);
-  const [thriller, setThriller] = useState([]);
-  const [documentary, setDocumentary] = useState([]);
-  const [mystery, setMystery] = useState([]);
 
   // genres show
   const [showAction, setshowAction] = useState([]);
@@ -81,49 +67,6 @@ const Browse = () => {
     });
   }
 
-  function sortGenres(arr) {
-    arr.forEach((item, index) => {
-      switch (item.genres) {
-        case 'Action':
-          setAction((action) => [item, ...action]);
-          break;
-        case 'Drama':
-          setDrama((drama) => [item, ...drama]);
-          break;
-        case 'Romance':
-          setRomance((romance) => [item, ...romance]);
-          break;
-        case 'Comedy':
-          setComedy((comedy) => [item, ...comedy]);
-          break;
-        case 'Scifi':
-          setScifi((scifi) => [item, ...scifi]);
-          break;
-        case 'Horror':
-          setHorror((horror) => [item, ...horror]);
-          break;
-        case 'Crime':
-          setCrime((crime) => [item, ...crime]);
-          break;
-        case 'Animation':
-          setAnimation((animation) => [item, ...animation]);
-          break;
-        case 'Adventure':
-          setAdventure((adventure) => [item, ...adventure]);
-          break;
-        case 'Thriller':
-          setThriller((thriller) => [item, ...thriller]);
-          break;
-        case 'Documentary':
-          setDocumentary((documentary) => [item, ...documentary]);
-          break;
-        case 'Mystery':
-          setMystery((mystery) => [item, ...mystery]);
-          break;
-      }
-    });
-  }
-
   // fetch the content from the server
   useEffect(() => {
     async function fetcher() {
@@ -147,9 +90,6 @@ const Browse = () => {
       try {
         if (json.show.length !== 0) {
           sortGenresShow(json.show);
-        }
-        if (json.movie.length !== 0) {
-          sortGenres(json.movie);
         }
         if (json.special) {
           if (json.special.length !== 0) {
@@ -187,47 +127,10 @@ const Browse = () => {
         overflowX: 'hidden',
       }}>
       <Navbar />
-      <Preview movie={movie} />
+      <Preview movie={show} />
       <div>
-        {movie ? <CardView title="New Movies" list={movie} /> : null}
         {show ? <CardView title="New Shows" list={show} /> : null}
         {special ? <CardView title="New Specials" list={special} /> : null}
-        {action.length !== 0 ? (
-          <CardView title="Action Movies" list={action} />
-        ) : null}
-        {drama.length !== 0 ? (
-          <CardView title="Drama Movies" list={drama} />
-        ) : null}
-        {romance.length !== 0 ? (
-          <CardView title="Romance Movies" list={romance} />
-        ) : null}
-        {comedy.length !== 0 ? (
-          <CardView title="Comedy Movies" list={comedy} />
-        ) : null}
-        {scifi.length !== 0 ? (
-          <CardView title="Sci-fi Movies" list={scifi} />
-        ) : null}
-        {horror.length !== 0 ? (
-          <CardView title="Horror Movies" list={horror} />
-        ) : null}
-        {crime.length !== 0 ? (
-          <CardView title="Crime Movies" list={crime} />
-        ) : null}
-        {animation.length !== 0 ? (
-          <CardView title="Animated Movies" list={animation} />
-        ) : null}
-        {adventure.length !== 0 ? (
-          <CardView title="Adventure Movies" list={adventure} />
-        ) : null}
-        {thriller.length !== 0 ? (
-          <CardView title="Thriller Movies" list={thriller} />
-        ) : null}
-        {documentary.length !== 0 ? (
-          <CardView title="Documentary Movies" list={documentary} />
-        ) : null}
-        {mystery.length !== 0 ? (
-          <CardView title="Mystery Movies" list={mystery} />
-        ) : null}
         {showAction.length !== 0 ? (
           <CardView title="Action Shows" list={showAction} />
         ) : null}
@@ -269,4 +172,4 @@ const Browse = () => {
   );
 };
 
-export default Browse;
+export default Show;

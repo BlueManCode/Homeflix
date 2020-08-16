@@ -5,6 +5,8 @@ import { useLocation, useHistory } from 'react-router-dom';
 // pages
 import Login from './pages/Login/Login.jsx';
 import Browse from './pages/Browse/Browse.jsx';
+import Movie from './pages/Movie/Movie';
+import Show from './pages/Show/Show';
 
 function App() {
   const location = useLocation();
@@ -69,6 +71,12 @@ function App() {
         </Route>
         <Route exact path="/browse">
           <Browse />
+        </Route>
+        <Route exact path="/movie">
+          <Movie />
+        </Route>
+        <Route exact path="/show">
+          <Show />
         </Route>
         <Redirect to="/login"></Redirect>
       </Switch>
