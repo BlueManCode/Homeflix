@@ -42,5 +42,38 @@ router.get('/getContent', async (req, res) => {
 })
 
 // get search movie
+router.get('/getSearch/:searchterm', async (req, res) => {
+	const searchterm = req.params.searchterm.split('%20').join(' ').toLowerCase()
+	const movies = await Movie.find({
+		search_tags: {
+			$regex: `${searchterm}`
+		}
+	})
+
+	const shows = await Show.find({
+		search_tags: {
+			$regex: `${searchterm}`
+		}
+	})
+
+	const specials = await Special.find({
+		search_tags: {
+			$regex: `${searchterm}`
+		}
+	})
+
+	if (req.userInfo.isSpecial) {
+		res.send({
+			movies,
+			shows,
+			specials
+		})
+	} else {
+		res.send({
+			movies,
+			shows
+		})
+	}
+})
 
 module.exports = router

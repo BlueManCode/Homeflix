@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './SearchBar.css';
 
 const SearchBar = () => {
-  const [show, setshow] = useState(false);
+  const history = useHistory();
+  const [searchTerm, setsearchTerm] = useState('');
+
+  const handleSearch = () => {
+    history.push(`/search?query=${searchTerm}`);
+  };
 
   return (
-    <form className="search-bar">
-      <input className="search-bar-input" type="text"></input>
+    <form className="search-bar" onSubmit={handleSearch}>
+      <input
+        className="search-bar-input"
+        type="text"
+        value={searchTerm}
+        onChange={(e) => {
+          setsearchTerm(e.target.value);
+        }}></input>
       <svg
         className="search-bar-logo"
         viewBox="0 0 24 24"
