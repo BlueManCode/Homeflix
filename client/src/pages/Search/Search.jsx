@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 import NavBar from '../Browse/component/Navbar';
-import Card from '../Browse/component/Card';
+import CardView from '../Browse/component/CardView';
 
 const Search = () => {
   const history = useHistory();
@@ -48,6 +49,12 @@ const Search = () => {
     fetcher();
   }, []);
 
+  const Header = styled.div`
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 4vmin;
+  `;
+
   if (isLoading) {
     return (
       <div
@@ -73,6 +80,26 @@ const Search = () => {
         background: 'rgb(51, 51, 51)',
       }}>
       <NavBar />
+      <div style={{ color: 'white', paddingTop: '15vmin' }}>
+        {movies.length > 0 ? (
+          <div>
+            <Header>Movies ({movies.length})</Header>
+            <CardView list={movies} />
+          </div>
+        ) : null}
+        {shows.length > 0 ? (
+          <div>
+            <Header>Shows ({shows.length})</Header>
+            <CardView list={shows} />
+          </div>
+        ) : null}
+        {specials.length > 0 ? (
+          <div>
+            <Header>Specials ({specials.length})</Header>
+            <CardView list={specials} />
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

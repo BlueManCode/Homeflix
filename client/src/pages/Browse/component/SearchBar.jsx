@@ -8,6 +8,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     history.push(`/search?query=${searchTerm}`);
+    window.location.reload();
   };
 
   return (
