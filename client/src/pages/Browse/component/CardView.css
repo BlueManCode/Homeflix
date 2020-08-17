@@ -13,9 +13,4 @@
 .cardview-container {
   padding: 10px 50px 50px 0;
   display: flex;
-  overflow-x: scroll;
-}
-
-.cardview-container::-webkit-scrollbar {
-  display: none;
 }
