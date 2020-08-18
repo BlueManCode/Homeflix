@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import './MoviePlayer.css';
 
-const MoviePlayer = () => {
+import MovieControls from './MovieControls';
+
+const MoviePlayer = ({ playerData }) => {
   return (
-    <div>
-      <div>Movie Player</div>
+    <div className="video-container">
+      <video autoPlay muted src={playerData.link}></video>
+      <MovieControls />
     </div>
   );
 };

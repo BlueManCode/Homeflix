@@ -27,11 +27,11 @@ const Player = () => {
         if (json.seasons) {
           setisShow(true);
         }
+        if (res.status !== 200) {
+          history.push('/browse');
+        }
       } catch (error) {
         console.log(error);
-      }
-      if (res.status !== 200) {
-        history.push('/browse');
       }
       setplayerData(json);
       setisLoading(false);
@@ -55,9 +55,9 @@ const Player = () => {
       </div>
     );
   } else if (!isLoading && isShow) {
-    return <ShowPlayer />;
+    return <ShowPlayer playerData={playerData} />;
   } else if (!isLoading && !isShow) {
-    return <MoviePlayer />;
+    return <MoviePlayer playerData={playerData} />;
   }
 };
 

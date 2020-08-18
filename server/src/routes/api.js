@@ -78,6 +78,7 @@ router.get('/getPlayerData/movie/:id', async (req, res, next) => {
 			next(new Error('NOT FOUND'))
 		}
 	})
+	next(new Error('Permission Denied'))
 })
 
 router.get('/getPlayerData/show/:id', async (req, res, next) => {
@@ -89,6 +90,7 @@ router.get('/getPlayerData/show/:id', async (req, res, next) => {
 			next(new Error('NOT FOUND'))
 		}
 	})
+	next(new Error('Permission Denied'))
 })
 
 router.get('/getPlayerData/special/:id', async (req, res, next) => {
@@ -101,9 +103,8 @@ router.get('/getPlayerData/special/:id', async (req, res, next) => {
 				next(new Error('NOT FOUND'))
 			}
 		})
-	} else {
-		next(new Error('Permission Denied'))
 	}
+	next(new Error('Permission Denied'))
 })
 
 
