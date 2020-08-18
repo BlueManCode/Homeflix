@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 const User = require('../models/userModel')
 const Show = require('../models/showModal')
@@ -44,23 +45,14 @@ router.get('/getContent', async (req, res) => {
 // get search movie
 router.get('/getSearch/:searchterm', async (req, res) => {
 	const searchterm = req.params.searchterm.split('%20').join(' ').toLowerCase()
-	const movies = await Movie.find({
+	const searchOption = {
 		search_tags: {
 			$regex: `${searchterm}`
 		}
-	})
-
-	const shows = await Show.find({
-		search_tags: {
-			$regex: `${searchterm}`
-		}
-	})
-
-	const specials = await Special.find({
-		search_tags: {
-			$regex: `${searchterm}`
-		}
-	})
+	}
+	const movies = await Movie.find(searchOption)
+	const shows = await Show.find(searchOption)
+	const specials = await Special.find(searchOption)
 
 	if (req.userInfo.isSpecial) {
 		res.send({
@@ -75,5 +67,44 @@ router.get('/getSearch/:searchterm', async (req, res) => {
 		})
 	}
 })
+
+// get the requested media for the player
+router.get('/getPlayerData/movie/:id', async (req, res, next) => {
+	const id = req.params.id
+	await Movie.findById(id).then((doc, error) => {
+		if (!error) {
+			res.send(doc)
+		} else {
+			next(new Error('NOT FOUND'))
+		}
+	})
+})
+
+router.get('/getPlayerData/show/:id', async (req, res, next) => {
+	const id = req.params.id
+	await Show.findById(id).then((doc, error) => {
+		if (!error) {
+			res.send(doc)
+		} else {
+			next(new Error('NOT FOUND'))
+		}
+	})
+})
+
+router.get('/getPlayerData/special/:id', async (req, res, next) => {
+	const id = req.params.id
+	if (req.userInfo.isSpecial) {
+		await Special.findById(id).then((doc, error) => {
+			if (!error) {
+				res.send(doc)
+			} else {
+				next(new Error('NOT FOUND'))
+			}
+		})
+	} else {
+		next(new Error('Permission Denied'))
+	}
+})
+
 
 module.exports = router

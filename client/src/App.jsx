@@ -8,6 +8,7 @@ import Browse from './pages/Browse/Browse.jsx';
 import Movie from './pages/Movie/Movie';
 import Show from './pages/Show/Show';
 import Search from './pages/Search/Search';
+import Player from './pages/Player/Player';
 
 function App() {
   const location = useLocation();
@@ -81,6 +82,9 @@ function App() {
         </Route>
         <Route exact path="/search">
           <Search />
+        </Route>
+        <Route exact path="/watch">
+          <Player />
         </Route>
         <Redirect to="/login"></Redirect>
       </Switch>

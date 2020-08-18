@@ -1,9 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './PlayBtn.css';
 
-const PlayBtn = () => {
+const PlayBtn = ({ data }) => {
+  const history = useHistory();
   return (
-    <button className="preview-poster-content-btn-play">
+    <button
+      className="preview-poster-content-btn-play"
+      onClick={() => {
+        history.push(`/watch?type=${data.type}&id=${data._id}`);
+      }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <svg
           style={{ marginRight: '1vmin' }}
