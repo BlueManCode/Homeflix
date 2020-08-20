@@ -4,17 +4,59 @@
   bottom: 0;
   margin: 0;
   padding: 0;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .controls-icon {
   cursor: pointer;
-  width: 4vmin;
-  height: 4vmin;
+  width: 35px;
+  height: 35px;
   stroke: white;
   stroke-width: 1.5;
-  padding: 2.5vw;
+  padding: 3vmin;
+  opacity: 0.8;
+  transition: 0.15s ease-in-out;
+}
+
+.controls-icon:hover {
+  transform: scale(1.2);
+  opacity: 1;
 }
 
 .progress-bar-container {
-  background: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 0 3vmin 0 3vmin;
+  cursor: pointer;
+}
+
+
+.progress-bar-incomplete {
+  width: 100%;
+  height: 5px;
+  background: rgb(98, 98, 98);
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.progress-bar-container span {
+  margin-left: 10px;
+}
+
+.progress-bar-complete {
+  width: 80%;
+  height: 5px;
+  background: red;
+}
+
+.progress-bar-complete-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: red;
 }

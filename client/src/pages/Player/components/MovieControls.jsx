@@ -1,28 +1,144 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './MovieControls.css';
 
-const MovieControls = () => {
+const MovieControls = ({ videoRef, containerRef }) => {
+  const progressRef = useRef(null);
+  const [isPaused, setisPaused] = useState(false);
+  const [isFullScreen, setisFullScreen] = useState(false);
+  const [width, setwidth] = useState(0);
+  const [timeLeftText, settimeLeftText] = useState(null);
+  useEffect(() => {
+    videoRef.current.addEventListener('timeupdate', () => {
+      const totalSecondsRemaining =
+        videoRef.current.duration - videoRef.current.currentTime;
+      // const time = new Date(null);
+      // time.setSeconds(totalSecondsRemaining);
+      // let hours = null;
+      // if (totalSecondsRemaining >= 3600) {
+      //   hours = time.getHours().toString().padStart('2', '0');
+      // }
+
+      // let minutes = time.getMinutes().toString().padStart('2', '0');
+      // let seconds = time.getSeconds().toString().padStart('2', '0');
+
+      // settimeLeftText(
+      //   `${hours ? hours : '00'}:${minutes ? minutes : '00'}:${
+      //     seconds ? seconds : '00'
+      //   }`,
+      // );
+
+      const hrs = (totalSecondsRemaining / 3600)
+        .toString()
+        .split('.')[0]
+        .padStart('2', '0');
+
+      const min = ((totalSecondsRemaining - hrs * 3600) / 60)
+        .toString()
+        .split('.')[0]
+        .padStart('2', '0');
+
+      const sec = (totalSecondsRemaining - (hrs * 3600 + min * 60))
+        .toString()
+        .split('.')[0]
+        .padStart('2', '0');
+
+      settimeLeftText(
+        `${hrs ? hrs : '00'}:${min ? min : '00'}:${sec ? sec : '00'}`,
+      );
+      setwidth(
+        (videoRef.current.currentTime / videoRef.current.duration) * 100,
+      );
+    });
+
+    videoRef.current.addEventListener('click', () => {
+      handlePlayPause();
+    });
+
+    videoRef.current.addEventListener('dblclick', () => {
+      handleFullScreen();
+    });
+
+    progressRef.current.addEventListener('click', (event) => {
+      const pos =
+        (event.pageX -
+          (progressRef.current.offsetLeft +
+            progressRef.current.offsetParent.offsetLeft)) /
+        progressRef.current.offsetWidth;
+      videoRef.current.currentTime = pos * videoRef.current.duration;
+    });
+
+    return () => {
+      videoRef.current.removeEventListner('timeupdate', () => {});
+      videoRef.current.removeEventListner('click', () => {});
+      videoRef.current.removeEventListner('dblclick', () => {});
+    };
+  }, []);
+
+  function handlePlayPause() {
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setisPaused(false);
+    } else {
+      videoRef.current.pause();
+      setisPaused(true);
+    }
+  }
+
+  function handleFullScreen() {
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen();
+      setisFullScreen(true);
+    } else {
+      document.exitFullscreen();
+      setisFullScreen(false);
+    }
+  }
+
   return (
     <div className="controls-container">
       <div className="progress-bar-container">
-        <div style={{ width: '70%' }}>
-          <div className="progress-bar-uncomplete"></div>
-          <div className="progress-bar-complete"></div>
+        <div ref={progressRef} className="progress-bar-incomplete">
+          <div
+            style={{ width: `${width}%` }}
+            className="progress-bar-complete"></div>
+          <div className="progress-bar-complete-dot"></div>
         </div>
-        <span style={{ color: 'white' }}>00:00</span>
+        <span>{timeLeftText}</span>
       </div>
-      <div style={{ display: 'flex', width: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          backgroundImage: 'linear-gradient(to top, black, transparent)',
+        }}>
         {/* Play/Pause Btn */}
-        <svg
-          className="controls-icon"
-          fill="white"
-          viewBox="0 0 24 24"
-          strokeLinecap="round"
-          strokeLinejoin="round">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
+        {isPaused ? (
+          <svg
+            onClick={handlePlayPause}
+            className="controls-icon"
+            fill="white"
+            viewBox="0 0 24 24"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        ) : (
+          <svg
+            onClick={handlePlayPause}
+            viewBox="0 0 24 24"
+            className="controls-icon"
+            fill="white"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        )}
         {/* 10sec Back Btn */}
         <svg
+          onClick={() => {
+            videoRef.current.currentTime -= 10;
+          }}
           className="controls-icon"
           fill="none"
           viewBox="0 0 24 24"
@@ -34,6 +150,9 @@ const MovieControls = () => {
         </svg>
         {/* 10sec Forward Btn */}
         <svg
+          onClick={() => {
+            videoRef.current.currentTime += 10;
+          }}
           className="controls-icon"
           fill="none"
           viewBox="0 0 24 24"
@@ -55,14 +174,26 @@ const MovieControls = () => {
         </svg>
         <div style={{ marginLeft: 'auto' }}></div>
         {/* Expand and Minimize */}
-        <svg
-          className="controls-icon"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeLinecap="round"
-          strokeLinejoin="round">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-        </svg>
+        {isFullScreen ? (
+          <svg
+            onClick={handleFullScreen}
+            className="controls-icon"
+            viewBox="0 0 24 24"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+          </svg>
+        ) : (
+          <svg
+            onClick={handleFullScreen}
+            className="controls-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeLinecap="round"
+            strokeLinejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
+        )}
       </div>
     </div>
   );
