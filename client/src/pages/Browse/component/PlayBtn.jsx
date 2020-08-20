@@ -8,7 +8,11 @@ const PlayBtn = ({ data }) => {
     <button
       className="preview-poster-content-btn-play"
       onClick={() => {
-        history.push(`/watch?type=${data.type}&id=${data._id}`);
+        if (data.type === 'movie') {
+          history.push(`/watch?type=${data.type}&id=${data._id}`);
+        } else {
+          history.push(`/watch?type=${data.type}&id=${data._id}&s=1&e=1`);
+        }
       }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <svg

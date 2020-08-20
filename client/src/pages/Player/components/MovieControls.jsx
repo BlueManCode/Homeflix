@@ -1,53 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './MovieControls.css';
 
-const MovieControls = ({ videoRef, containerRef }) => {
+const MovieControls = ({ videoRef, containerRef, playerData }) => {
   const progressRef = useRef(null);
   const [isPaused, setisPaused] = useState(false);
   const [isFullScreen, setisFullScreen] = useState(false);
   const [width, setwidth] = useState(0);
   const [timeLeftText, settimeLeftText] = useState(null);
+
   useEffect(() => {
     videoRef.current.addEventListener('timeupdate', () => {
-      const totalSecondsRemaining =
-        videoRef.current.duration - videoRef.current.currentTime;
-      // const time = new Date(null);
-      // time.setSeconds(totalSecondsRemaining);
-      // let hours = null;
-      // if (totalSecondsRemaining >= 3600) {
-      //   hours = time.getHours().toString().padStart('2', '0');
-      // }
+      try {
+        const totalSecondsRemaining =
+          videoRef.current.duration - videoRef.current.currentTime;
 
-      // let minutes = time.getMinutes().toString().padStart('2', '0');
-      // let seconds = time.getSeconds().toString().padStart('2', '0');
+        const hrs = (totalSecondsRemaining / 3600)
+          .toString()
+          .split('.')[0]
+          .padStart('2', '0');
 
-      // settimeLeftText(
-      //   `${hours ? hours : '00'}:${minutes ? minutes : '00'}:${
-      //     seconds ? seconds : '00'
-      //   }`,
-      // );
+        const min = ((totalSecondsRemaining - hrs * 3600) / 60)
+          .toString()
+          .split('.')[0]
+          .padStart('2', '0');
 
-      const hrs = (totalSecondsRemaining / 3600)
-        .toString()
-        .split('.')[0]
-        .padStart('2', '0');
+        const sec = (totalSecondsRemaining - (hrs * 3600 + min * 60))
+          .toString()
+          .split('.')[0]
+          .padStart('2', '0');
 
-      const min = ((totalSecondsRemaining - hrs * 3600) / 60)
-        .toString()
-        .split('.')[0]
-        .padStart('2', '0');
-
-      const sec = (totalSecondsRemaining - (hrs * 3600 + min * 60))
-        .toString()
-        .split('.')[0]
-        .padStart('2', '0');
-
-      settimeLeftText(
-        `${hrs ? hrs : '00'}:${min ? min : '00'}:${sec ? sec : '00'}`,
-      );
-      setwidth(
-        (videoRef.current.currentTime / videoRef.current.duration) * 100,
-      );
+        settimeLeftText(
+          `${hrs ? hrs : '00'}:${min ? min : '00'}:${sec ? sec : '00'}`,
+        );
+        setwidth(
+          (videoRef.current.currentTime / videoRef.current.duration) * 100,
+        );
+      } catch (error) {}
     });
 
     videoRef.current.addEventListener('click', () => {
@@ -58,20 +46,16 @@ const MovieControls = ({ videoRef, containerRef }) => {
       handleFullScreen();
     });
 
-    progressRef.current.addEventListener('click', (event) => {
-      const pos =
-        (event.pageX -
-          (progressRef.current.offsetLeft +
-            progressRef.current.offsetParent.offsetLeft)) /
-        progressRef.current.offsetWidth;
-      videoRef.current.currentTime = pos * videoRef.current.duration;
+    progressRef.current.addEventListener('click', async (event) => {
+      try {
+        const pos =
+          (event.pageX -
+            (progressRef.current.offsetLeft +
+              progressRef.current.offsetParent.offsetLeft)) /
+          progressRef.current.offsetWidth;
+        videoRef.current.currentTime = pos * videoRef.current.duration;
+      } catch (error) {}
     });
-
-    return () => {
-      videoRef.current.removeEventListner('timeupdate', () => {});
-      videoRef.current.removeEventListner('click', () => {});
-      videoRef.current.removeEventListner('dblclick', () => {});
-    };
   }, []);
 
   function handlePlayPause() {
@@ -109,7 +93,6 @@ const MovieControls = ({ videoRef, containerRef }) => {
         style={{
           display: 'flex',
           width: '100%',
-          backgroundImage: 'linear-gradient(to top, black, transparent)',
         }}>
         {/* Play/Pause Btn */}
         {isPaused ? (
@@ -172,10 +155,19 @@ const MovieControls = ({ videoRef, containerRef }) => {
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
         </svg>
-        <div style={{ marginLeft: 'auto' }}></div>
+        <div
+          style={{
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyItems: 'center',
+          }}>
+          <span style={{ fontWeight: 'bold' }}>{playerData.title}</span>
+        </div>
         {/* Expand and Minimize */}
         {isFullScreen ? (
           <svg
+            style={{ marginLeft: 'auto' }}
             onClick={handleFullScreen}
             className="controls-icon"
             viewBox="0 0 24 24"
@@ -185,6 +177,7 @@ const MovieControls = ({ videoRef, containerRef }) => {
           </svg>
         ) : (
           <svg
+            style={{ marginLeft: 'auto' }}
             onClick={handleFullScreen}
             className="controls-icon"
             fill="none"

@@ -7,12 +7,13 @@
 
   display: flex;
   flex-direction: column;
+  background-image: linear-gradient(to top, black, transparent);
 }
 
 .controls-icon {
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   stroke: white;
   stroke-width: 1.5;
   padding: 3vmin;
@@ -34,7 +35,6 @@
   cursor: pointer;
 }
 
-
 .progress-bar-incomplete {
   width: 100%;
   height: 5px;
@@ -44,19 +44,31 @@
   transition: all 0.2s;
 }
 
+.progress-bar-incomplete:hover {
+  height: 10px;
+}
+
 .progress-bar-container span {
   margin-left: 10px;
 }
 
 .progress-bar-complete {
   width: 80%;
-  height: 5px;
+  height: 100%;
+  transition: all 0.4s;
   background: red;
 }
 
 .progress-bar-complete-dot {
   width: 20px;
   height: 20px;
+  transition: all 0.2s;
+  transform: translateX(-5px);
   border-radius: 10px;
   background: red;
+}
+
+.progress-bar-complete-dot:hover {
+  width: 25px;
+  height: 25px;
 }
