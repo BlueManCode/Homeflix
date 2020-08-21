@@ -27,7 +27,7 @@ const CardView = (props) => {
       <div className="cardview-container">
         {slides === 3 ? (
           <Swiper
-            style={{ width: '100%', zIndex: '1' }}
+            style={{ width: '100%', zIndex: '1', paddingLeft: '30px' }}
             spaceBetween={140}
             slidesPerView={3}>
             {props.list.map((item, key) => (
@@ -44,7 +44,7 @@ const CardView = (props) => {
           </Swiper>
         ) : (
           <Swiper
-            style={{ width: '100%' }}
+            style={{ width: '100%', zIndex: '1', paddingLeft: '30px' }}
             spaceBetween={200}
             slidesPerView={6}>
             {props.list.map((item, key) => (

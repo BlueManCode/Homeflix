@@ -39,7 +39,7 @@ const Search = () => {
           setshows(json.shows);
         }
         if (json.specials) {
-          setshows(json.shows);
+          setspecials(json.specials);
         }
       } catch (error) {
         console.log(error);

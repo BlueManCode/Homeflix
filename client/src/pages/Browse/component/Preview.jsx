@@ -7,10 +7,12 @@ import MoreInfoBtn from './MoreInfoBtn';
 const Preview = ({ movie }) => {
   const [poster, setPoster] = useState(null);
   const [title, setTitle] = useState(null);
+  const [item, setitem] = useState(null);
 
   useEffect(() => {
     // get a random movie to display
     const item = movie[Math.floor(Math.random() * movie.length)];
+    setitem(item);
     setPoster(item.preview_poster);
     setTitle(item.titlePNG);
   }, []);
@@ -31,7 +33,7 @@ const Preview = ({ movie }) => {
           }}>
           <img className="preview-poster-content-title" src={title}></img>
           <div className="preview-poster-content-btn">
-            <PlayBtn />
+            <PlayBtn data={item} />
             <MoreInfoBtn />
           </div>
         </div>

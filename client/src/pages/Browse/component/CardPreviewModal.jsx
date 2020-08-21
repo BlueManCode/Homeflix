@@ -8,11 +8,11 @@ const CardPreviewModal = ({ showModel, modelData }) => {
   return (
     <div
       style={{
-        display: `${showModel ? 'block' : 'none'}`,
+        // display: `${showModel ? 'block' : 'none'}`,
         backgroundImage: `url("${modelData.preview_poster}"`,
         backgroundSize: 'cover',
       }}
-      className="cardview-model">
+      className={showModel ? 'cardview-model' : 'cardview-model-hide'}>
       <div className="cardview-model-content">
         <div>
           <img className="cardview-model-title" src={modelData.titlePNG}></img>
@@ -26,7 +26,7 @@ const CardPreviewModal = ({ showModel, modelData }) => {
               </div>
             ) : null}
           </div>
-          <div className="cardview-model-overview">{modelData.overview}</div>
+          {/* <div className="cardview-model-overview">{modelData.overview}</div> */}
           <div style={{ display: 'flex', marginTop: '2vmin' }}>
             <PlayBtn data={modelData} />
             <MyListBtn />

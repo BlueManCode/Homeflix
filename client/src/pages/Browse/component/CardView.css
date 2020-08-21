@@ -2,12 +2,12 @@
   color: white;
   display: flex;
   flex-direction: column;
-  margin-left: 30px;
 }
 
 .cardview-title {
   font-weight: bold;
   font-size: 20px;
+  padding: 30px;
 }
 
 .cardview-container {

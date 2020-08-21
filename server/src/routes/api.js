@@ -82,7 +82,8 @@ router.get('/getPlayerData/movie/:id', async (req, res, next) => {
 })
 
 router.get('/getPlayerData/show/:id', async (req, res, next) => {
-	const id = req.params.id
+	const id = req.params.id.split('&s=')[0]
+	console.log(id)
 	await Show.findById(id).then((doc, error) => {
 		if (!error) {
 			res.send(doc)
