@@ -1,4 +1,5 @@
 .cardview-model {
+  overflow: hidden;
   width: 100vw;
   height: 50vh;
   background: black;
@@ -27,6 +28,7 @@
 }
 
 .cardview-model-hide {
+  overflow: hidden;
   width: 100vw;
   height: 50vh;
   background: black;
